@@ -1,9 +1,21 @@
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'mvn --version'
+            }
+        }
+        stage('Deploy') {
+          steps {
+                retry(2) {
+                    sh 'ls -al $HOME'
+                }
+          }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Testing 123"; exit 0'
             }
         }
     }
