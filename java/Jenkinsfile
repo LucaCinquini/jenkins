@@ -1,7 +1,11 @@
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
 
-   environment {
+    options {
+        skipStagesAfterUnstable()
+    }
+
+    environment {
         TEST_FLAG = 'true'
     }
 
@@ -11,18 +15,32 @@ pipeline {
                 sh 'mvn --version'
             }
         }
+        stage('Test - atlo') {
+            environment {
+              VENUE = 'atlo'
+            }
+            steps {
+                echo "TEST_FLAG=$TEST_FLAG"
+                echo "VENUE=$VENUE"
+                sh 'echo "Testing 123"; exit 0'
+            }
+        }
+        stage('Test - sbeta') {
+            environment {
+              VENUE = 'sbeta'
+            }
+            steps {
+                echo "TEST_FLAG=$TEST_FLAG"
+                echo "VENUE=$VENUE"
+                sh 'echo "Testing 123"; exit 0'
+            }
+        }
         stage('Deploy') {
           steps {
                 retry(2) {
                     sh 'ls -al $HOME'
                 }
           }
-        }
-        stage('Test') {
-            steps {
-                echo "TEST_FLAG=$TEST_FLAG"
-                sh 'echo "Testing 123"; exit 0'
-            }
         }
     }
     post {
