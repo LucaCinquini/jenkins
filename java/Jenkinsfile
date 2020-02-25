@@ -32,15 +32,9 @@ pipeline {
         }
         success {
             echo 'This will run only if successful'
-            mail to: 'luca.cinquini@jpl.nasa.gov',
-                 subject: "Success Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Pipeline succeded ${env.BUILD_URL}"
         }
         failure {
             echo 'This will run only if failed'
-            mail to: 'luca.cinquini@jpl.nasa.gov',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Pipeline failed: ${env.JOB_NAME} ${env.BUILD_NUMBER} "
         }
         unstable {
             echo 'This will run only if the run was marked as unstable'
