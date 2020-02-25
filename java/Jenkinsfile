@@ -1,5 +1,10 @@
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
+
+   environment {
+        TEST_FLAG = 'true'
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -15,6 +20,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                echo "TEST_FLAG=$TEST_FLAG"
                 sh 'echo "Testing 123"; exit 0'
             }
         }
