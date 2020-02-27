@@ -12,6 +12,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo "Build #: ${env.BUILD_NUMBER}"
                 sh 'mvn --version'
             }
         }
