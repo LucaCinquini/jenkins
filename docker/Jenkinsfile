@@ -4,10 +4,8 @@ pipeline {
         JPL_GITHUB_TOKEN    = 'abc123'
     }
     stages {
-        stage('Build') {
+        stage('Buildit') {
             steps {
-                echo 'Starting to build docker image'
-
                 script {
                     def customImage = docker.build("my-image:${env.BUILD_ID}", "--build-arg JPL_GITHUB_TOKEN=bongo", "--no-cache", ".")
                 }

@@ -12,7 +12,7 @@ RUN yum install -y git
 USER cws_user
 ENV HOME=/home/cws_user
 
-RUN echo JPL_GITHUB_TOKEN = $JPL_GITHUB_TOKEN
+RUN echo "This time JPL_GITHUB_TOKEN = $JPL_GITHUB_TOKEN"
 
 ENV SRC_DIR=${HOME}/src
 RUN mkdir -p $SRC_DIR
