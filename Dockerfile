@@ -9,6 +9,7 @@ USER root
 #RUN yum update -y 
 
 USER cws_user
+ENV HOME=/home/cws_user
 
 ENV SRC_DIR=${HOME}/src
 RUN mkdir -p $SRC_DIR
