@@ -8,7 +8,7 @@ USER root
 
 # update OS and install additional libraries
 RUN yum update -y &&\
-	yum install -y curl git wget net-tools nc &&\
+	yum install -y curl git &&\
 	yum clean all
 
 #RUN yum update -y 
@@ -16,7 +16,7 @@ RUN yum update -y &&\
 USER cws_user
 ENV HOME=/home/cws_user
 
-RUN echo $JPL_GITHUB_TOKEN
+RUN echo JPL_GITHUB_TOKEN = $JPL_GITHUB_TOKEN
 
 ENV SRC_DIR=${HOME}/src
 RUN mkdir -p $SRC_DIR
