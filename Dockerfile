@@ -16,6 +16,8 @@ RUN yum update -y &&\
 USER cws_user
 ENV HOME=/home/cws_user
 
+RUN echo $JPL_GITHUB_TOKEN
+
 ENV SRC_DIR=${HOME}/src
 RUN mkdir -p $SRC_DIR
 RUN ls -l
