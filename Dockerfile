@@ -7,11 +7,7 @@ ARG JPL_GITHUB_TOKEN
 USER root
 
 # update OS and install additional libraries
-RUN yum update -y &&\
-	yum install -y curl git &&\
-	yum clean all
-
-#RUN yum update -y 
+RUN yum install -y git
 
 USER cws_user
 ENV HOME=/home/cws_user
