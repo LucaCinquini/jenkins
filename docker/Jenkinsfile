@@ -1,7 +1,7 @@
 node {
     checkout scm
 
-    withCredentials([file(credentialsId: 'JPL_GITHUB_TOKEN', variable: 'JPL_GITHUB_TOKEN')]) {
+    withCredentials([string(credentialsId: 'JPL_GITHUB_TOKEN', variable: 'JPL_GITHUB_TOKEN')]) {
       def customImage = docker.build("my-image:${env.BUILD_ID}")
     }
 
