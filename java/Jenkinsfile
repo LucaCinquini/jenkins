@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         TEST_FLAG = 'true'
+        JPL_GITHUB_TOKEN = credentials('JPL_GITHUB_TOKEN')
     }
 
     stages {
