@@ -1,7 +1,7 @@
 pipeline {
     agent { dockerfile true }
     environment {
-        JPL_GITHUB_TOKEN    = credentials('JPL_GITHUB_TOKEN')
+        JPL_GITHUB_TOKEN    = 'abc123'
     }
     stages {
         stage('Build') {
