@@ -1,15 +1,17 @@
 node {
-    checkout scm
-    /*
-     * In order to communicate with the MySQL server, this Pipeline explicitly
-     * maps the port (`3306`) to a known port on the host machine.
-     */
-    docker.image('mariadb:10.2').withRun('-e "MYSQL_ROOT_PASSWORD=test" -e "MYSQL_DATABASE=cws" -e "TZ=UTC" -p 3306:3306') { c ->
+
+    stage('Checkout'){
+          checkout scm
+    }
+
+    stage('Start DB') {
+      docker.image('mariadb:10.2').withRun('-e "MYSQL_ROOT_PASSWORD=test" -e "MYSQL_DATABASE=cws" -e "TZ=UTC" -p 3306:3306') { c ->
         /* Wait until mysql service is up */
         sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
 
         /* Run some tests which require MySQL - These tests run within the local machine */
         sh 'echo `hostname`'
         sh 'mysql -h0.0.0.0 --user=root --password=test --execute \"SHOW DATABASES;\"'
+      }
     }
 }
