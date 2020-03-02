@@ -100,13 +100,12 @@ ENV CATALINA_HOME ${CWS_INSTALL}/server/apache-tomcat-9.0.12
 RUN cp $SRC_DIR/pcs-bpmn/workflows/*.bpmn ${CWS_INSTALL}/bpmn/.
     
 # deploy euroc adaptation jar to webapps directories
-# FIXME: currently jar is located in jars/ subdirectory
-# maybe retrieve from GitHub instead?
-COPY jars/ ${CATALINA_HOME}/lib/.
-COPY jars/ ${CATALINA_HOME}/webapps/cws-ui/WEB-INF/lib/.
-COPY jars/ ${CATALINA_HOME}/webapps/cws-engine/WEB-INF/lib/.
-COPY jars/ ${CATALINA_HOME}/webapps/camunda/WEB-INF/lib/.
-COPY jars/ ${CATALINA_HOME}/webapps/engine-rest/WEB-INF/lib/.
+# deploy euroc adaptation jar to webapps directories
+COPY $SRC_DIR/pcs-cws/docker/jars/ ${CATALINA_HOME}/lib/.
+COPY $SRC_DIR/pcs-cws/docker/jars/ ${CATALINA_HOME}/webapps/cws-ui/WEB-INF/lib/.
+COPY $SRC_DIR/pcs-cws/docker/jars/ ${CATALINA_HOME}/webapps/cws-engine/WEB-INF/lib/.
+COPY $SRC_DIR/pcs-cws/docker/jars/ ${CATALINA_HOME}/webapps/camunda/WEB-INF/lib/.
+COPY $SRC_DIR/pcs-cws/docker/jars/ ${CATALINA_HOME}/webapps/engine-rest/WEB-INF/lib/.
 
 # override startup script to automatically enable workers, initiators
 COPY ./wait_for_mariadb.sh /home/cws_user/wait_for_mariadb.sh
