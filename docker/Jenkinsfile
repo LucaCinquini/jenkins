@@ -1,5 +1,12 @@
 node {
-    checkout scm
+
+    stage ('Clean') {
+      deleteDir()
+    }
+
+    stage ('Checkout') {
+      checkout scm 
+    }
 
     withCredentials([string(credentialsId: 'JPL_GITHUB_TOKEN', variable: 'JPL_GITHUB_TOKEN')]) {
       echo "JPL_GITHUB_TOKEN = ${JPL_GITHUB_TOKEN}"
