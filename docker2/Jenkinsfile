@@ -10,6 +10,6 @@ node {
 
         /* Run some tests which require MySQL - These tests run within the local machine */
         sh 'echo `hostname`'
-        sh 'mysql --user=root --password=test --execute \"SHOW DATABASES;\"'
+        sh 'mysql -h0.0.0.0 --user=root --password=test --execute \"SHOW DATABASES;\"'
     }
 }
