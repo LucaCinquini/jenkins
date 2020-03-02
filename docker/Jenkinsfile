@@ -8,9 +8,11 @@ node {
       checkout scm 
     }
 
-    withCredentials([string(credentialsId: 'JPL_GITHUB_TOKEN', variable: 'JPL_GITHUB_TOKEN')]) {
-      echo "JPL_GITHUB_TOKEN = ${JPL_GITHUB_TOKEN}"
-      def customImage = docker.build("my-image:${env.BUILD_ID}", "--build-arg JPL_GITHUB_TOKEN=${JPL_GITHUB_TOKEN} .")
+    stage ('Build') {
+      withCredentials([string(credentialsId: 'JPL_GITHUB_TOKEN', variable: 'JPL_GITHUB_TOKEN')]) {
+        echo "JPL_GITHUB_TOKEN = ${JPL_GITHUB_TOKEN}"
+        def customImage = docker.build("my-image:${env.BUILD_ID}", "--build-arg JPL_GITHUB_TOKEN=${JPL_GITHUB_TOKEN} .")
+      }
     }
 
 }
