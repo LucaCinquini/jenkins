@@ -8,8 +8,8 @@ node {
         /* Wait until mysql service is up */
         sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
 
-        /* Run some tests which require MySQL */
+        /* Run some tests which require MySQL - These tests run within the local machine */
         sh 'echo `hostname`'
-        sh '/usr/bin/mysql --user=root --password=test --execute \"SHOW DATABASES;\"'
+        sh 'mysql --user=root --password=test --execute \"SHOW DATABASES;\"'
     }
 }
