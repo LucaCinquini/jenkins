@@ -107,8 +107,13 @@ RUN cp $SRC_DIR/pcs-cws/docker/jars/*.jar ${CATALINA_HOME}/webapps/camunda/WEB-I
 RUN cp $SRC_DIR/pcs-cws/docker/jars/*.jar ${CATALINA_HOME}/webapps/engine-rest/WEB-INF/lib/.
 
 # override startup script to automatically enable workers, initiators
-COPY ./wait_for_mariadb.sh /home/cws_user/wait_for_mariadb.sh
-COPY ./startup.sh /home/cws_user/startup.sh
-COPY ./deploy.sh /home/cws_user/cws/deploy.sh
+USER root
+RUN rm /home/cws_user/wait_for_mariadb.sh
+RUN rm /home/cws_user/startup.sh
+USER cws_user
+RUN cp $SRC_DIR/pcs-cws/docker/wait_for_mariadb.sh /home/cws_user/wait_for_mariadb.sh
+RUN cp $SRC_DIR/pcs-cws/docker/startup.sh /home/cws_user/startup.sh
+RUN cp $SRC_DIR/pcs-cws/docker/deploy.sh /home/cws_user/cws/deploy.sh
+
 
 ENTRYPOINT [ "./wait_for_mariadb.sh" ]
