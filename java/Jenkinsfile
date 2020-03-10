@@ -1,66 +1,30 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
-
-    options {
-        skipStagesAfterUnstable()
+    agent {
+        label 'CAE-Jenkins2-DH-Agents-Linux'
     }
-
-    environment {
-        TEST_FLAG = 'true'
-    }
-
     stages {
-        stage('Build') {
+        stage('Back-end') 
+	{
+            agent {
+                docker { 
+                    image 'maven:3-alpine' 
+                    reuseNode true
+                }
+            }
             steps {
-                echo "Build #: ${env.BUILD_NUMBER}"
                 sh 'mvn --version'
             }
         }
-        stage('Test - atlo') {
-            environment {
-              VENUE = 'atlo'
-            }
-            steps {
-                echo "TEST_FLAG=$TEST_FLAG"
-                echo "VENUE=$VENUE"
-                sh 'echo "Testing 123"; exit 0'
-            }
-        }
-        stage('Test - sbeta') {
-            environment {
-              VENUE = 'sbeta'
-            }
-            steps {
-                echo "TEST_FLAG=$TEST_FLAG"
-                echo "VENUE=$VENUE"
-                sh 'echo "Testing 123"; exit 0'
-            }
-        }
-        stage('Deploy') {
-          steps {
-                retry(2) {
-                    sh 'ls -al $HOME'
+        stage('Front-end') {
+            agent {
+                docker { 
+                    image 'node:7-alpine'
+                    reuseNode true
                 }
-          }
-        }
-    }
-    post {
-        always {
-            echo 'This will always run'
-            deleteDir() /* clean up our workspace */
-        }
-        success {
-            echo 'This will run only if successful'
-        }
-        failure {
-            echo 'This will run only if failed'
-        }
-        unstable {
-            echo 'This will run only if the run was marked as unstable'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
+            }
+            steps {
+                sh 'node --version'
+            }
         }
     }
 }
